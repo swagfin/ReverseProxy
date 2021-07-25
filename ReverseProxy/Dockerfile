@@ -7,10 +7,10 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:3.1 AS build
 WORKDIR /src
-COPY ["ReverseProxy/ReverseProxy.csproj", "ReverseProxy/"]
-RUN dotnet restore "ReverseProxy/ReverseProxy.csproj"
+COPY ["ReverseProxy.csproj", "./"]
+RUN dotnet restore "ReverseProxy.csproj"
 COPY . .
-WORKDIR "/src/ReverseProxy"
+WORKDIR "/src/."
 RUN dotnet build "ReverseProxy.csproj" -c Release -o /app/build
 
 FROM build AS publish
