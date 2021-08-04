@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using ReverseProxy.ExtendedPolicies;
+using Yarp.ReverseProxy.LoadBalancing;
 
 namespace ReverseProxy
 {
@@ -17,6 +19,9 @@ namespace ReverseProxy
 
         public void ConfigureServices(IServiceCollection services)
         {
+            // Add partitioning load balacing policy:
+            services.AddSingleton<ILoadBalancingPolicy, PartitioningByIPAddressPolicy>();
+
             services
                 .AddReverseProxy()
                 .LoadFromConfig(_configuration.GetSection("ReverseProxy"));
