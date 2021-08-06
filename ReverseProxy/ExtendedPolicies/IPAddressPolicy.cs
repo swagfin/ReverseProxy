@@ -9,12 +9,12 @@ using Yarp.ReverseProxy.Model;
 
 namespace ReverseProxy.ExtendedPolicies
 {
-    public sealed class PartitioningByIPAddressPolicy : ILoadBalancingPolicy
+    public sealed class IPAddressPolicy : ILoadBalancingPolicy
     {
-        private readonly ILogger<PartitioningByIPAddressPolicy> logger;
-        public string Name => "PartitioningByIPAddress";
+        private readonly ILogger<IPAddressPolicy> logger;
+        public string Name => "IPAddress";
 
-        public PartitioningByIPAddressPolicy(ILogger<PartitioningByIPAddressPolicy> logger)
+        public IPAddressPolicy(ILogger<IPAddressPolicy> logger)
         {
             this.logger = logger;
         }

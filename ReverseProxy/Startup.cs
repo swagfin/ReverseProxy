@@ -19,11 +19,9 @@ namespace ReverseProxy
 
         public void ConfigureServices(IServiceCollection services)
         {
-            // Add partitioning load balacing policy:
-            //  services.AddSingleton<ILoadBalancingPolicy, PartitioningByIPAddressPolicy>();
-            //  services.AddSingleton<ILoadBalancingPolicy, PartitioningByQueryStringPolicy>();
-            services.AddSingleton<ILoadBalancingPolicy, PartitioningByRouteBasedPolicy>();
-
+            services.AddSingleton<ILoadBalancingPolicy, IPAddressPolicy>();
+            services.AddSingleton<ILoadBalancingPolicy, PartitionKeyRouteValuePolicy>();
+            services.AddSingleton<ILoadBalancingPolicy, PartitionKeyQueryValuePolicy>();
             services
                 .AddReverseProxy()
                 .LoadFromConfig(_configuration.GetSection("ReverseProxy"));
