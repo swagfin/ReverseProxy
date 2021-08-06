@@ -14,7 +14,7 @@ namespace ReverseProxy.ExtendedPolicies
     {
         private readonly ILogger<PartitioningByIPAddressPolicy> logger;
 
-        public string Name => "PartitioningByIPAddress";
+        public string Name => "PartitioningRouteBased";
 
         public PartitioningByRouteBasedPolicy(ILogger<PartitioningByIPAddressPolicy> logger)
         {
@@ -29,7 +29,7 @@ namespace ReverseProxy.ExtendedPolicies
             {
                 var partitionIndex = 0; //initialize to zero
 
-                var queryValue = context.Request.Query.TryGetValue("user", out var value); //using query.TryGetValue
+                var queryValue = context.Request.RouteValues.TryGetValue("user", out var value); //using query.TryGetValue
                 if (queryValue)
                 {
                     partitionIndex = Partitioner.CalculatePartitionIndex(value.ToString(), availableDestinations.Count);
