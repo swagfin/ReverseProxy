@@ -28,7 +28,7 @@ namespace ReverseProxy.ExtendedPolicies
             {
                 if (context.Request.Query.TryGetValue("partitionKey", out var value))
                 {
-                    int partitionIndex = Partitioner.CalculatePartitionIndex(value.ToString(), availableDestinations.Count);
+                    int partitionIndex = Common.CalculatePartitionIndex(value.ToString(), availableDestinations.Count);
                     logger.LogInformation($"Request will be routed to: {availableDestinations[partitionIndex].Model.Config.Address}");
                     return availableDestinations.OrderBy(d => d.Model.Config.Address).ElementAt(partitionIndex);
                 }
