@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Cryptography;
-using System.Threading.Tasks;
 
 namespace ReverseProxy.Utilities
 {
-    public static class Partitioner
+    public static class Common
     {
         public static int CalculatePartitionIndex(string valueToPartitionOn, int maxNumberOfPartitions)
         {
@@ -14,9 +11,8 @@ namespace ReverseProxy.Utilities
             {
                 byte[] inputBytes = System.Text.Encoding.ASCII.GetBytes(valueToPartitionOn);
                 byte[] hashedBytes = md5.ComputeHash(inputBytes);
-                //Use First Byte
-                byte firstByte = hashedBytes[0];
-                int unMappedPartitionNr = firstByte;
+                //use first byte
+                int unMappedPartitionNr = hashedBytes[0];
                 unMappedPartitionNr = Math.Abs(unMappedPartitionNr);
                 int partitionIndex = unMappedPartitionNr % maxNumberOfPartitions;
                 return partitionIndex;

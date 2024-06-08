@@ -22,9 +22,8 @@ namespace ReverseProxy
             services.AddSingleton<ILoadBalancingPolicy, IPAddressPolicy>();
             services.AddSingleton<ILoadBalancingPolicy, PartitionKeyRouteValuePolicy>();
             services.AddSingleton<ILoadBalancingPolicy, PartitionKeyQueryValuePolicy>();
-            services
-                .AddReverseProxy()
-                .LoadFromConfig(_configuration.GetSection("ReverseProxy"));
+            services.AddReverseProxy()
+                    .LoadFromConfig(_configuration.GetSection("ReverseProxy"));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

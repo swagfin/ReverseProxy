@@ -33,7 +33,7 @@ namespace ReverseProxy.ExtendedPolicies
                 if (routeDictionary.ContainsKey(partitionBasedOn))
                 {
                     var valueToPartitionOn = routeDictionary[partitionBasedOn].ToString(); //Unique Value of Partition Key e.g. 9999 \\use unique data like deviceCode, Machine Code etc
-                    int partitionIndex = Partitioner.CalculatePartitionIndex(valueToPartitionOn, availableDestinations.Count);
+                    int partitionIndex = Common.CalculatePartitionIndex(valueToPartitionOn, availableDestinations.Count);
                     logger.LogInformation($"Request will be routed to: {availableDestinations[partitionIndex].Model.Config.Address}");
                     return availableDestinations.OrderBy(d => d.Model.Config.Address).ElementAt(partitionIndex);
                 }
@@ -64,7 +64,5 @@ namespace ReverseProxy.ExtendedPolicies
                     result.Add(parameter.Name, parameter.DefaultValue);
             return result;
         }
-
-
     }
 }
